@@ -7,7 +7,7 @@
 {
   imports =
     [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
+      ../hardware/brokoli-hardware-configuration.nix
     ];
 
   # Use the GRUB 2 boot loader.
@@ -18,6 +18,8 @@
   boot.loader.efi.canTouchEfiVariables = true;
   # Define on which hard drive you want to install Grub.
   boot.loader.grub.device = "nodev"; # or "nodev" for efi only
+
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   networking.hostName = "brokoli"; # Define your hostname.
   # Pick only one of the below networking options.
@@ -114,7 +116,7 @@
       ];
     };
 
-    pipewire.enable = false;
+    # pipewire.enable = false;
   };
 
   # hardware.printers = {
@@ -132,8 +134,6 @@
   #   ensureDefaultPrinter = "HP_Laserjet";
   # };
 
-  # Enable sound.
-  # sound.enable = true;
   hardware = {
     nvidia = {
 
@@ -167,20 +167,37 @@
       package = config.boot.kernelPackages.nvidiaPackages.stable;
     };
 
-    pulseaudio.enable = true;
+    # pulseaudio.enable = true;
+  };
+
+  security.rtkit.enable = true;
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+    jack.enable = false;
   };
 
   # services.jack = {
   #   jackd.enable = true;
   #   # support ALSA only programs via ALSA JACK PCM plugin
-  #   alsa.enable = false;
+  #   alsa.enable = true;
   #   # support ALSA only programs via loopback device (supports programs like Steam)
   #   loopback = {
-  #     enable = true;
+  #     enable = false;
   #     # buffering parameters for dmix device to work with ALSA only semi-professional sound programs
   #     #dmixConfig = ''
   #     #  period_size 2048
   #     #'';
+  #   };
+  # };
+
+  # systemd = {
+  #   user.services = {
+  #     pulseaudio.environment = {
+  #       JACK_PROMISCUOUS_SERVER = "jackaudio";
+  #     };
   #   };
   # };
 
@@ -240,6 +257,7 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     alacritty
+    carla
     cmake
     coreutils
     emacs
