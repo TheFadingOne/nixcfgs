@@ -1,8 +1,8 @@
-{ config, pkgs, lib, ... }:
+{ pkgs, lib, ... }:
 
 let
-  customPkgs = import ~/nixpkgs/default.nix { inherit pkgs lib; };
-  allPkgs = pkgs // customPkgs;
+  # customPkgs = import ~/nixpkgs/default.nix { inherit pkgs lib; };
+  # allPkgs = pkgs // customPkgs;
 in
 {
   # Home Manager needs a bit of information about you and the paths it should
@@ -23,12 +23,14 @@ in
     "discord"
     "spotify"
   ];
+
   # The home.packages option allows you to install Nix packages into your
   # environment.
-  home.packages = with allPkgs; [
+  home.packages = with pkgs; [
     # MIDI Music
     audacious
     audacious-plugins
+    ardour
 
     # Music
     cmus
@@ -52,6 +54,8 @@ in
         mupen64plus
       ];
     })
+
+    ripgrep
 
 
     scrot
