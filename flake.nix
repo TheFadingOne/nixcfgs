@@ -13,9 +13,11 @@
       # to avoid problems caused by different versions of nixpkgs.
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    musnix  = { url = "github:musnix/musnix"; };
   };
 
-  outputs = { nixpkgs, home-manager, ... }@inputs:
+  outputs = { nixpkgs, home-manager, musnix, ... }@inputs:
     let 
       customPkgs = ./pkgs/default.nix;
       nixpkgs-cfg = ({ nixpkgs, ... }:
@@ -29,9 +31,10 @@
     # Please replace my-nixos with your hostname
     nixosConfigurations.brokoli = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
+      specialArgs = { inherit inputs; };
       modules = [
-        # Import the previous configuration.nix we used,
-        # so the old configuration file still takes effect
+        inputs.musnix.nixosModules.musnix
+
         ./modules/brokoli-configuration.nix
 
         nixpkgs-cfg

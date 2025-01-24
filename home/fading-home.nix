@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ config, pkgs, lib, ... }:
 
 let
   # customPkgs = import ~/nixpkgs/default.nix { inherit pkgs lib; };
@@ -30,7 +30,14 @@ in
     # MIDI Music
     audacious
     audacious-plugins
+
+    # Audio production
     ardour
+    calf
+    guitarix
+    gxplugins-lv2
+    neural-amp-modeler-ui
+    x42-plugins
 
     # Music
     cmus
@@ -45,7 +52,6 @@ in
     mumble
     OVMF
     qemu
-    pkg-config
     python3Minimal
 
     (retroarch.override {
@@ -62,6 +68,7 @@ in
     solfege
     spotify
     telegram-desktop
+    thunderbird
     tuxguitar
 
     winetricks
@@ -155,10 +162,11 @@ in
 
   xdg = {
     enable = true;
-    cacheHome = ~/.cache;
-    configHome = ~/.config;
-    dataHome = ~/.local/share;
-    stateHome = ~/.local/state;
+
+    cacheHome = "${config.home.homeDirectory}/.cache";
+    configHome = "${config.home.homeDirectory}/.config";
+    dataHome = "${config.home.homeDirectory}/.local/share";
+    stateHome = "${config.home.homeDirectory}/.local/state";
 
     userDirs = {
       enable = true;

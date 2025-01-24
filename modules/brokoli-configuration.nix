@@ -43,6 +43,7 @@
   #   useXkbConfig = true; # use xkbOptions in tty.
   # };
 
+  musnix.enable = true;
 
   services = {
     # Enable the X11 windowing system.
@@ -71,11 +72,27 @@
         '';
       };
 
-      monitorSection = ''
-        Option "Primary" "DVI-D-0: true, HDMI-0: false"
-        Option "Modeline" "DVI-D-0: 1920x1080_144.00, HDMI-0: 1920x1080_60.00"
-        Option "LeftOf" "HDMI-0: DVI-D-0"
-        Option "RightOf" "DVI-D-0: HDMI-0"
+      extraConfig = ''
+        Section "Monitor"
+          Identifier "ASUS DVI-D-0"
+          Modeline "1920x1080_144.00"  451.72  1920 2080 2296 2672  1080 1081 1084 1174  -HSync +Vsync
+          Option "Primary" "true"
+          Option "RightOf" "HDMI-0"
+        EndSection
+
+        Section "Monitor"
+          Identifier "SAMSUNG HDMI-0"
+          Modeline "1920x1080_60.00"  172.80  1920 2040 2248 2576  1080 1081 1084 1118  -HSync +Vsync
+          Option "Primary" "false"
+          Option "LeftOf" "DVI-D-0"
+        EndSection
+
+        Section "Device"
+          Identifier "NVIDIA GTX 970"
+          Driver "nvidia"
+          Option "Monitor-DVI-D-0" "ASUS DVI-D-0"
+          Option "Monitor-HDMI-0" "SAMSUNG HDMI-0"
+        EndSection
       '';
 
       windowManager.i3 = {
@@ -329,4 +346,3 @@
   system.stateVersion = "22.11"; # Did you read the comment?
 
 }
-
