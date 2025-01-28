@@ -7,4 +7,5 @@ in
   dsda-doom = callPackage ./dsda-doom/default.nix {};
   woof-doom = callPackage ./woof-doom/default.nix {};
   neural-amp-modeler-ui = callPackage ./neural-amp-modeler-ui/default.nix {};
+  x42-plugins = callPackage ./x42-plugins/default.nix {};
 }
