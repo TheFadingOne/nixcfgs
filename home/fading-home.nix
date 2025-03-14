@@ -46,18 +46,23 @@ in
     feh
     fzf
     gamemode
+    gimp
     gnupg
     gtk3
     klick
+    krita
+    lutris
+    mpv
     mumble
     OVMF
     qemu
     python3Minimal
 
+    flips
     (retroarch.override {
       cores = with libretro; [
         bsnes
-        mupen64plus
+        parallel-n64
       ];
     })
 

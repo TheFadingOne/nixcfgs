@@ -123,6 +123,8 @@
       nssmdns4 = true;
     };
 
+    mullvad-vpn.enable = true;
+
     udev = {
       # extraRules = ''
       #   SUBSYSTEM=="usb", ATTRS{idVendor}=="0fce", MODE="0666", TAG+="uaccess"
