@@ -34,8 +34,10 @@ in
     # Audio production
     ardour
     calf
+    dragonfly-reverb
     guitarix
     gxplugins-lv2
+    lsp-plugins
     neural-amp-modeler-ui
     x42-plugins
 
@@ -49,6 +51,7 @@ in
     gimp
     gnupg
     gtk3
+    kicad
     klick
     krita
     lutris
