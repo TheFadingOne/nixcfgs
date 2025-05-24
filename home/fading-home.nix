@@ -38,7 +38,7 @@ in
     guitarix
     gxplugins-lv2
     lsp-plugins
-    neural-amp-modeler-ui
+    neural-amp-modeler-lv2
     x42-plugins
 
     # Music
@@ -62,12 +62,10 @@ in
     python3Minimal
 
     flips
-    (retroarch.override {
-      cores = with libretro; [
-        bsnes
-        parallel-n64
-      ];
-    })
+    (retroarch.withCores (cores: with cores; [
+      bsnes
+      parallel-n64
+    ]))
 
     ripgrep
 
