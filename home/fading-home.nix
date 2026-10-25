@@ -2,6 +2,7 @@
 
 {
   imports = [
+    ./neovim.nix
     ./waybar.nix
     ./zsh.nix
   ];
@@ -139,20 +140,6 @@
       enable = true;
       enableZshIntegration = true;
       nix-direnv.enable = true;
-    };
-
-    neovim = {
-      enable = true;
-      plugins = with pkgs.vimPlugins; [
-        packer-nvim
-        nvim-lspconfig
-        nvim-cmp
-        cmp-nvim-lsp
-        cmp_luasnip
-        luasnip
-        telescope-nvim
-        vim-go
-      ];
     };
   };
 

@@ -23,13 +23,18 @@
   outputs = { nixpkgs, nixos-hardware, home-manager, musnix, ... }@inputs:
     let 
       customPkgs = ./pkgs/default.nix;
-      nixpkgs-cfg = ({ nixpkgs, ... }:
+      nixpkgs-cfg = { ... }:
         {
           nixpkgs = {
             config.allowUnfree = true;
             overlays = [ (import ./pkgs/overlay.nix) ];
           };
-        });
+        };
+
+      allowUnfree = names: { lib, ... }:
+        {
+          nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) names;
+	};
     in {
     # Please replace my-nixos with your hostname
     nixosConfigurations.brokoli = nixpkgs.lib.nixosSystem {
@@ -66,14 +71,7 @@
 	nixpkgs-cfg
 
         # Set unfree predicate
-        ({ lib, ...}:
-          {
-            nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
-              "discord"
-              "spotify"
-            ];
-          }
-        )
+	(allowUnfree [ "discord" "spotify" ])
 
         # make home-manager as a module of nixos
         # so that home-manager configuration will be deployed automatically when executing `nixos-rebuild switch`

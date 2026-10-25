@@ -87,6 +87,10 @@
 
   programs = {
     firefox.enable = true;
+    neovim = {
+      enable = true;
+      defaultEditor = true;
+    };
     niri.enable = true;
     zsh.enable = true;
 
