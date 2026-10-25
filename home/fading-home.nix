@@ -1,10 +1,10 @@
 { config, pkgs, lib, ... }:
 
-let
-  # customPkgs = import ~/nixpkgs/default.nix { inherit pkgs lib; };
-  # allPkgs = pkgs // customPkgs;
-in
 {
+  imports = [
+    ./waybar.nix
+    ./zsh.nix
+  ];
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "fading";
@@ -18,11 +18,6 @@ in
   # want to update the value, then make sure to first check the Home Manager
   # release notes.
   home.stateVersion = "23.11"; # Please read the comment before changing.
-
-  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
-    "discord"
-    "spotify"
-  ];
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
@@ -54,11 +49,8 @@ in
     kicad
     klick
     krita
-    lutris
     mpv
     mumble
-    OVMF
-    qemu
     python3Minimal
 
     flips
@@ -70,22 +62,20 @@ in
     ripgrep
 
 
-    scrot
-    solfege
+    # solfege
     spotify
     telegram-desktop
     thunderbird
     tuxguitar
 
     winetricks
-    wineWowPackages.full
 
     # nvim
     luajit
 
     # DOOM
-    dsda-doom # custom package
-    woof-doom # custom package
+    dsda-doom
+    woof-doom
 
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.
@@ -152,17 +142,17 @@ in
     };
 
     neovim = {
-        enable = true;
-        plugins = with pkgs.vimPlugins; [
-            packer-nvim
-            nvim-lspconfig
-            nvim-cmp
-            cmp-nvim-lsp
-            cmp_luasnip
-            luasnip
-            telescope-nvim
-            vim-go
-        ];
+      enable = true;
+      plugins = with pkgs.vimPlugins; [
+        packer-nvim
+        nvim-lspconfig
+        nvim-cmp
+        cmp-nvim-lsp
+        cmp_luasnip
+        luasnip
+        telescope-nvim
+        vim-go
+      ];
     };
   };
 
@@ -179,8 +169,6 @@ in
       createDirectories = true;
     };
   };
-
-  services.picom.enable = true;
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
