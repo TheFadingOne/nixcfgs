@@ -2,7 +2,7 @@
 
 {
   imports = [
-    ./neovim/neovim.nix
+    ./neovim
     ./waybar.nix
     ./zsh.nix
   ];
