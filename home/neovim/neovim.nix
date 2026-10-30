@@ -3,8 +3,8 @@
 {
   programs.neovim = {
     enable = true;
+
     plugins = with pkgs.vimPlugins; [
-      packer-nvim
       nvim-lspconfig
       nvim-cmp
       cmp-nvim-lsp
@@ -12,6 +12,11 @@
       luasnip
       telescope-nvim
       vim-go
+      lean-nvim
+      diffview-nvim
+      catppuccin-nvim
+      neorg
+      oil-nvim
     ];
 
     withNodeJs = true;
@@ -19,4 +24,6 @@
     withPython3 = true;
     withRuby = true;
   };
+
+  xdg.configFile."nvim/init.lua".source = ./init.lua;
 }

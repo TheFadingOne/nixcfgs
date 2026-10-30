@@ -2,7 +2,7 @@
 
 {
   imports = [
-    ./neovim.nix
+    ./neovim/neovim.nix
     ./waybar.nix
     ./zsh.nix
   ];
@@ -68,6 +68,11 @@
     telegram-desktop
     thunderbird
     tuxguitar
+
+    # typst cli and lsp
+    tinymist
+    typst
+    typstyle
 
     winetricks
 
